@@ -35,15 +35,16 @@ def process_img(image):
     #                                     rho   theta   thresh  min length, max gap:
     lines = cv2.HoughLinesP(processed_img, 1, np.pi / 180, 180, np.array([]), 10, 3)
 
+
     m1 = 0
     m2 = 0
-
+    '''
     try:
         l1, l2, m1, m2 = draw_lanes(original_image, lines)
         cv2.line(original_image, (l1[0], l1[1]), (l1[2], l1[3]), [255, 0, 0], 5)
         cv2.line(original_image, (l2[0], l2[1]), (l2[2], l2[3]), [255, 0, 0], 5)
     except Exception as e:
-        print(str(e))
+        print(str(e)) 
         pass
     try:
         for coords in lines:
@@ -56,6 +57,8 @@ def process_img(image):
                 print(str(e))
     except Exception as e:
         pass
+    
+    '''
 
     return processed_img, original_image, m1, m2
 
