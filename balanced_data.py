@@ -5,6 +5,7 @@ from random import shuffle
 import cv2
 
 train_data = np.load('data/training_data.npy')
+
 print(len(train_data))
 
 df = pd.DataFrame(train_data)
@@ -18,17 +19,19 @@ forwards = []
 
 shuffle(train_data)
 
-for data in  train_data:
+for index, data in enumerate(train_data):
     img = data[0]
     choice = data[1]
 
-    if choice == [1, 0, 0]:
+    # if choice == [1, 0, 0]:   training data noise
+    if choice == [1, 1, 0]:
         lefts.append([img, choice])
 
     if choice == [0, 1, 0]:
         forwards.append([img, choice])
 
-    if choice == [0, 0, 1]:
+    # if choice == [0, 0, 1]:   training data noise
+    if choice == [0, 0, 1] and index & 2 == 0:
         right.append([img, choice])
 
     else:
@@ -42,10 +45,14 @@ final_data = forwards + lefts + right
 
 shuffle(final_data)
 print(len(final_data))
+df = pd.DataFrame(final_data)
+print(df.head())
+print(Counter(df[1].apply(str)))
 
 np.save('data/training_data_v2.npy', final_data)
 
-
+'''
+# training_data shuffled imshow
 for data in train_data:
     img = data[0]
     choice = data[1]
@@ -54,4 +61,4 @@ for data in train_data:
     if cv2.waitKey(25) & 0xFF == ord('q'):
         cv2.destroyAllWindows()
         break
-
+'''

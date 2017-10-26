@@ -5,16 +5,18 @@ from alexnet import alexnet
 
 WIDTH = 160
 HEIGHT = 120
-LR = .0005
-EPOCHS = 25
-MODEL_NAME = 'f1racer-{}-{}-{}-epochs.model'.format(LR, 'alexnetv2',EPOCHS)
+LR = 1e-3
+EPOCHS = 240
+MODEL_NAME = 'f1racer-{}-{}-{}-epochs_.model'.format(LR, 'alexnetv2',EPOCHS)
 
 model = alexnet(WIDTH, HEIGHT, LR)
 
+model.load(MODEL_NAME)
+
 train_data = np.load('data/training_data_v2.npy')
 
-train = train_data[:350]
-test = train_data[350:399]
+train = train_data[:420]
+test = train_data[420:]
 
 X = np.array([i[0] for i in train]).reshape(-1,WIDTH,HEIGHT,1)
 Y = [i[1] for i in train]
