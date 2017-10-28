@@ -3,22 +3,10 @@
 __pycache__
 data
 log
-
-
-f1racer-0.001-alexnetv2-80-epochs_.model.data-00000-of-00001
-f1racer-0.001-alexnetv2-80-epochs_.model.index
-f1racer-0.001-alexnetv2-80-epochs_.model.meta
-f1racer-0.04-alexnetv2-80-epochs.model.data-00000-of-00001
-f1racer-0.04-alexnetv2-80-epochs.model.index
-f1racer-0.04-alexnetv2-80-epochs.model.meta
-f1racer-0.005-alexnetv2-80-epochs_.model.data-00000-of-00001
-f1racer-0.005-alexnetv2-80-epochs_.model.index
-f1racer-0.005-alexnetv2-80-epochs_.model.meta
-model_alexnet-49.data-00000-of-00001
-model_alexnet-49.index
-model_alexnet-49.meta
+emu
+models
 checkpoint
-
+images
 
 
 

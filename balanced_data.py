@@ -44,6 +44,7 @@ right = right[:len(right)]
 final_data = forwards + lefts + right
 
 shuffle(final_data)
+shuffle(final_data)
 print(len(final_data))
 df = pd.DataFrame(final_data)
 print(df.head())
@@ -53,11 +54,11 @@ np.save('data/training_data_v2.npy', final_data)
 
 '''
 # training_data shuffled imshow
-for data in train_data:
+for index, data in enumerate(final_data):
     img = data[0]
     choice = data[1]
     cv2.imshow('test', img)
-    print(choice)
+    cv2.imwrite('images/frame_{}.png'.format(index), img)
     if cv2.waitKey(25) & 0xFF == ord('q'):
         cv2.destroyAllWindows()
         break

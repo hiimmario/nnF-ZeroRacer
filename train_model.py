@@ -6,12 +6,10 @@ from alexnet import alexnet
 WIDTH = 160
 HEIGHT = 120
 LR = 1e-3
-EPOCHS = 240
-MODEL_NAME = 'f1racer-{}-{}-{}-epochs_.model'.format(LR, 'alexnetv2',EPOCHS)
+EPOCHS = 2
+MODEL_NAME = './models/f1racer-{}-{}-{}-epochs_.model'.format(LR, 'alexnetv2',EPOCHS)
 
 model = alexnet(WIDTH, HEIGHT, LR)
-
-model.load(MODEL_NAME)
 
 train_data = np.load('data/training_data_v2.npy')
 
