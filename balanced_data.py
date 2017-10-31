@@ -25,14 +25,18 @@ for index, data in enumerate(train_data):
 
     # if choice == [1, 0, 0]:   training data noise
     if choice == [1, 1, 0]:
-        lefts.append([img, choice])
+        # lefts.append([img, choice]) remove noise
+        lefts.append([img, [1, 0, 0]])
+        print("left direction!")
 
     if choice == [0, 1, 0]:
         forwards.append([img, choice])
+    print("forward!")
 
     # if choice == [0, 0, 1]:   training data noise
     if choice == [0, 0, 1] and index & 2 == 0:
         right.append([img, choice])
+        print("right direction!")
 
     else:
         print("no match!")
@@ -43,7 +47,6 @@ right = right[:len(right)]
 
 final_data = forwards + lefts + right
 
-shuffle(final_data)
 shuffle(final_data)
 print(len(final_data))
 df = pd.DataFrame(final_data)

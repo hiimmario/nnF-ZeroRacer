@@ -8,9 +8,5 @@ models
 checkpoint
 images
 
-
-
-
-
-
-
+test_model.py
+asdf.py

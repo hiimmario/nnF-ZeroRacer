@@ -3,7 +3,6 @@ import cv2
 import numpy as np
 import win32gui, win32ui, win32con, win32api
 
-
 def grab_screen(region=None):
     hwin = win32gui.GetDesktopWindow()
 

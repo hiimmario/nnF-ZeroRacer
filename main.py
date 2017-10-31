@@ -2,9 +2,7 @@ import cv2
 import time
 import numpy as np
 from grabscreen import grab_screen
-from getkeys import key_check
 import os
-
 from getkeys import key_check
 
 def keys_to_output(keys):
@@ -20,6 +18,7 @@ def keys_to_output(keys):
 
     return output
 
+
 file_name = 'data/training_data.npy'
 
 
@@ -30,25 +29,25 @@ else:
     print('File does not exist, starting fresh!')
     training_data = []
 
-
-
 def main():
     last_time = time.time()
     while True:
         screen = grab_screen(region=(100, 100, 348, 324))
-        screen = cv2.cvtColor(screen, cv2.COLOR_BGR2GRAY)
+        processed_img = cv2.cvtColor(screen, cv2.COLOR_BGR2GRAY)
+        processed_img = cv2.Canny(processed_img, threshold1=200, threshold2=300)
 
-        '''
-        cv2.imshow('window', screen)          
-        
+        kernel = np.ones((2, 2), np.uint8)
+        processed_img = cv2.dilate(processed_img, kernel,iterations = 1)
+        processed_img = processed_img[120:248, :]
+        processed_img = cv2.resize(processed_img, (160, 60))
+
+        keys = key_check()
+        output = keys_to_output(keys)
+        training_data.append([processed_img, output])
+
         if cv2.waitKey(25) & 0xFF == ord('q'):
             cv2.destroyAllWindows()
             break
-        '''
-        screen = cv2.resize(screen, (160, 120))
-        keys = key_check()
-        output = keys_to_output(keys)
-        training_data.append([screen, output])
 
         print('Frame took {} seconds'.format(time.time() - last_time))
         last_time = time.time()

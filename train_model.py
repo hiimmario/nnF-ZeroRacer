@@ -2,19 +2,20 @@
 
 import numpy as np
 from alexnet import alexnet
+import time
 
 WIDTH = 160
-HEIGHT = 120
+HEIGHT = 60
 LR = 1e-3
-EPOCHS = 2
-MODEL_NAME = './models/f1racer-{}-{}-{}-epochs_.model'.format(LR, 'alexnetv2',EPOCHS)
+EPOCHS = 10
+MODEL_NAME = './models/f1racer-{}-{}-{}-{}-epochs_.model'.format(time.strftime("%Y%m%d-%H%M%S"), LR, 'alexnetv2',EPOCHS)
 
 model = alexnet(WIDTH, HEIGHT, LR)
 
 train_data = np.load('data/training_data_v2.npy')
 
-train = train_data[:420]
-test = train_data[420:]
+train = train_data[:1000]
+test = train_data[1000:]
 
 X = np.array([i[0] for i in train]).reshape(-1,WIDTH,HEIGHT,1)
 Y = [i[1] for i in train]
