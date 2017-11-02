@@ -2,11 +2,6 @@
 .idea
 __pycache__
 data
-log
-emu
+logs
 models
-checkpoint
 images
-
-test_model.py
-asdf.py
