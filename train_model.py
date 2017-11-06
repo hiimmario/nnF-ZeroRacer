@@ -97,7 +97,7 @@ class_weights = {class_id: round(max_val/num_images, 2)
 
 # Train Model
 
-nof_epochs = 2
+nof_epochs = 32
 
 model.fit_generator(
     train_generator,
@@ -108,6 +108,6 @@ model.fit_generator(
     initial_epoch=0
 )
 
-# model.save("models/model1.h5")
+model.save("models/model1.h5")
 
 # tensorboard --logdir=foo:C:/Users/Mario/PycharmProjects/f1racer/logs

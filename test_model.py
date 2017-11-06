@@ -29,7 +29,7 @@ def right():
     PressKey(W)
     # ReleaseKey(W)
     ReleaseKey(A)
-    #ReleaseKey(D)
+    # ReleaseKey(D)
 
 
 model = load_model("models/model1.h5")
@@ -48,11 +48,11 @@ while True:
 
         screen = grab_screen(region=(100, 100, 612, 548))
         processed_img = cv2.cvtColor(screen, cv2.COLOR_BGR2GRAY)
-        processed_img = cv2.Canny(processed_img, threshold1=200,
-                                  threshold2=300)
-
-        kernel = np.ones((2, 2), np.uint8)
-        processed_img = cv2.dilate(processed_img, kernel, iterations=1)
+        # processed_img = cv2.Canny(processed_img, threshold1=200,
+        #                           threshold2=300)
+        #
+        # kernel = np.ones((2, 2), np.uint8)
+        # processed_img = cv2.dilate(processed_img, kernel, iterations=1)
         processed_img = cv2.resize(processed_img, (204, 150))
 
         # cv2.imshow("window1", processed_img)
