@@ -17,7 +17,7 @@ lefts = []
 right = []
 forwards = []
 
-# shuffle(train_data)
+shuffle(train_data)
 
 for index, data in enumerate(train_data):
     img = data[0]
@@ -26,7 +26,7 @@ for index, data in enumerate(train_data):
     # if choice == [1, 0, 0]:   training data noise
     if choice == [1, 1, 0]:
         # lefts.append([img, choice]) remove noise
-        lefts.append([img, choice])
+        lefts.append([img, [1, 0, 0]])
         # print("left direction!")
 
     if choice == [0, 1, 0]:
@@ -35,16 +35,17 @@ for index, data in enumerate(train_data):
 
     # if choice == [0, 0, 1]:   training data noise
     if choice == [0, 1, 1]:
-        right.append([img, choice])
+        right.append([img, [0, 0, 1]])
         #print("right direction!")
 
     else:
         print("no match!")
-'''
-forwards = forwards[:len(lefts)][:len(right)]
-lefts = lefts[:len(forwards)]
-right = right[:len(right)]
-'''
+
+# forwards = forwards[:len(lefts)][:len(right)]
+# lefts = lefts[:len(forwards)]
+# right = right[:len(right)]
+#
+
 final_data = forwards + lefts + right
 
 
@@ -57,11 +58,6 @@ print(Counter(df[1].apply(str)))
 '''
 np.save('data/training_data_v2.npy', final_data)
 '''
-
-# training_data shuffled imshow
-
-
-
 
 
 for index, data in enumerate(lefts):

@@ -14,7 +14,7 @@ from keras.preprocessing.image import ImageDataGenerator
 
 
 # Create data generator.
-batch_size = 2**6
+batch_size = 64
 
 train_datagen = ImageDataGenerator(
     rescale=1./255
@@ -97,7 +97,7 @@ class_weights = {class_id: round(max_val/num_images, 2)
 
 # Train Model
 
-nof_epochs = 32
+nof_epochs = 8
 
 model.fit_generator(
     train_generator,
@@ -110,4 +110,3 @@ model.fit_generator(
 
 model.save("models/model1.h5")
 
-# tensorboard --logdir=foo:C:/Users/Mario/PycharmProjects/f1racer/logs
