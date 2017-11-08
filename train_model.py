@@ -97,7 +97,7 @@ class_weights = {class_id: round(max_val/num_images, 2)
 
 # Train Model
 
-nof_epochs = 8
+nof_epochs = 7
 
 model.fit_generator(
     train_generator,
