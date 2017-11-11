@@ -1,14 +1,16 @@
 import numpy as np
 import cv2
 import time
-from directkeys import PressKey,ReleaseKey, W, A, D
-from getkeys import key_check
-from grabscreen import grab_screen
+from direct_keys import PressKey, ReleaseKey, W, A, D
+from get_keys import key_check
+from grab_screen import grab_screen
+
+from process_image import process_image
 
 from keras.models import load_model
 
-WIDTH = 150
-HEIGHT = 204
+WIDTH = 384
+HEIGHT = 216
 
 def straight():
     PressKey(W)
@@ -19,9 +21,9 @@ def straight():
 def left():
     PressKey(A)
     PressKey(W)
-    #ReleaseKey(W)
+    # ReleaseKey(W)
     ReleaseKey(D)
-    #ReleaseKey(A)
+    # ReleaseKey(A)
 
 
 def right():
@@ -32,34 +34,32 @@ def right():
     # ReleaseKey(D)
 
 
-model = load_model("models/model1.h5")
+model = load_model("models/model13.h5")
 
+paused = True
 last_time = time.time()
+
 for i in list(range(3))[::-1]:
     print(i + 1)
     time.sleep(1)
 
-paused = True
-
 while True:
     if not paused:
-        print('loop took {} seconds'.format(time.time() - last_time))
+
+        fps = round(1 / max((time.time() - last_time), 0.01))
         last_time = time.time()
 
-        screen = grab_screen(region=(100, 100, 612, 548))
-        processed_img = cv2.cvtColor(screen, cv2.COLOR_BGR2GRAY)
-        processed_img = cv2.Canny(processed_img, threshold1=200,
-                                  threshold2=300)
+        screen = grab_screen(region=(0, 0, 1920, 1080))
 
-        kernel = np.ones((2, 2), np.uint8)
-        processed_img = cv2.dilate(processed_img, kernel, iterations=1)
-        processed_img = cv2.resize(processed_img, (204, 150))
+        processed_img = process_image(screen)
 
-        model_input = processed_img.reshape(WIDTH, HEIGHT, 1)
+        model_input = processed_img.reshape(HEIGHT, WIDTH, 1)
         model_input = np.expand_dims(model_input, axis=0)
 
         prediction = model.predict(model_input)
         moves = np.argmax(prediction)
+
+        print(str(moves) + " (" + str(fps) + "fps)")
 
         if moves == 0:
             straight()
@@ -67,7 +67,6 @@ while True:
             left()
         elif moves == 2:
             right()
-
 
     keys = key_check()
 
@@ -82,5 +81,3 @@ while True:
             ReleaseKey(W)
             ReleaseKey(D)
             time.sleep(1)
-
-

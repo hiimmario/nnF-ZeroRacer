@@ -1,20 +1,17 @@
-import numpy as np
-import pandas as pd
-import pylab
-from scipy.misc import imread
-
 from collections import Counter
 
-from keras.models import Sequential, load_model
+from keras.models import Sequential
 from keras.layers import Dense, InputLayer, Conv2D, MaxPooling2D, Flatten,\
                          Dropout, BatchNormalization
-from keras.callbacks import TensorBoard, ModelCheckpoint
+from keras.callbacks import TensorBoard #, ModelCheckpoint ?? how to implement - i want to load checkpoints of trained model after specific epochs
 
 from keras.preprocessing.image import ImageDataGenerator
 
+WIDTH = 384
+HEIGHT = 216
 
 # Create data generator.
-batch_size = 64
+batch_size = 2**6
 
 train_datagen = ImageDataGenerator(
     rescale=1./255
@@ -29,7 +26,7 @@ train_datagen = ImageDataGenerator(
 
 train_generator = train_datagen.flow_from_directory(
     "images",
-    target_size=(150, 204),
+    target_size=(HEIGHT, WIDTH),
     color_mode="grayscale",
     batch_size=batch_size,
     class_mode="categorical",
@@ -39,10 +36,10 @@ train_generator = train_datagen.flow_from_directory(
 
 # Modell
 
-input_shape = (30600,)
-input_reshape = (150, 204, 1)
+input_shape = (82944,)
+input_reshape = (HEIGHT, WIDTH, 1)
 
-hidden_num_units = 200
+hidden_num_units = 500
 output_num_units = 3
 
 model = Sequential([
@@ -83,8 +80,11 @@ model.compile(loss='categorical_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
 
+nof_epochs = 200
+
 # Callbacks
-tensorboard = TensorBoard(log_dir='logs/model1', histogram_freq=0,
+tensorboard = TensorBoard(log_dir='logs/model-{}epochs-{}batchsize-{}hidden_units'
+                          .format(nof_epochs, batch_size, hidden_num_units), histogram_freq=0,
                           write_graph=True, write_images=False,
                           batch_size=batch_size)
 
@@ -95,9 +95,9 @@ max_val = float(max(counter.values()))
 class_weights = {class_id: round(max_val/num_images, 2)
                  for class_id, num_images in counter.items()}
 
-# Train Model
+print(class_weights)
 
-nof_epochs = 7
+# Train Model
 
 model.fit_generator(
     train_generator,
@@ -108,5 +108,6 @@ model.fit_generator(
     initial_epoch=0
 )
 
-model.save("models/model1.h5")
+model.save('models/model-{}epochs-{}batchsize-{}hidden_units'.format(nof_epochs, batch_size, hidden_num_units) + '.h5')
 
+# tensorboard --logdir=foo:C:/Users/Mario/PycharmProjects/f1racer/logs
