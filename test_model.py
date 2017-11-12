@@ -9,8 +9,8 @@ from process_image import process_image
 
 from keras.models import load_model
 
-WIDTH = 384
-HEIGHT = 216
+WIDTH = 192
+HEIGHT = 108
 
 def straight():
     PressKey(W)
@@ -34,7 +34,7 @@ def right():
     # ReleaseKey(D)
 
 
-model = load_model("models/model13.h5")
+model = load_model("models/model-16epochs-64batchsize-200hidden_units.h5")
 
 paused = True
 last_time = time.time()
@@ -42,6 +42,8 @@ last_time = time.time()
 for i in list(range(3))[::-1]:
     print(i + 1)
     time.sleep(1)
+
+loop_index = 0
 
 while True:
     if not paused:
@@ -53,6 +55,8 @@ while True:
 
         processed_img = process_image(screen)
 
+        # cv2.imwrite('images_test/frame_{}.png'.format(loop_index), processed_img)
+
         model_input = processed_img.reshape(HEIGHT, WIDTH, 1)
         model_input = np.expand_dims(model_input, axis=0)
 
@@ -60,6 +64,8 @@ while True:
         moves = np.argmax(prediction)
 
         print(str(moves) + " (" + str(fps) + "fps)")
+
+        loop_index += 1
 
         if moves == 0:
             straight()

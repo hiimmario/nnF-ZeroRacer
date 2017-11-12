@@ -27,15 +27,15 @@ for index, data in enumerate(train_data):
     # if choice == [1, 0, 0]:   training data noise
     if choice == [1, 1, 0] or choice == [1, 0, 0]:
         lefts.append([processed_img, [1, 0, 0]])
-        cv2.imwrite('images/lefts/frame_{}.png'.format(index), processed_img)
+        cv2.imwrite('images_smaller/lefts/frame_{}.png'.format(index), processed_img)
 
     elif choice == [0, 1, 0]:
         forwards.append([processed_img, choice])
-        cv2.imwrite('images/forwards/frame_{}.png'.format(index), processed_img)
+        cv2.imwrite('images_smaller/forwards/frame_{}.png'.format(index), processed_img)
 
     elif choice == [0, 1, 1] or choice == [0, 0, 1]:
         right.append([processed_img, [0, 0, 1]])
-        cv2.imwrite('images/rights/frame_{}.png'.format(index), processed_img)
+        cv2.imwrite('images_smaller/rights/frame_{}.png'.format(index), processed_img)
 
     else:
         pass

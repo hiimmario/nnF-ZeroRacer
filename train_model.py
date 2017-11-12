@@ -7,8 +7,8 @@ from keras.callbacks import TensorBoard #, ModelCheckpoint ?? how to implement -
 
 from keras.preprocessing.image import ImageDataGenerator
 
-WIDTH = 384
-HEIGHT = 216
+WIDTH = 192
+HEIGHT = 108
 
 # Create data generator.
 batch_size = 2**6
@@ -25,7 +25,7 @@ train_datagen = ImageDataGenerator(
 )
 
 train_generator = train_datagen.flow_from_directory(
-    "images",
+    "images_smaller",
     target_size=(HEIGHT, WIDTH),
     color_mode="grayscale",
     batch_size=batch_size,
@@ -36,10 +36,10 @@ train_generator = train_datagen.flow_from_directory(
 
 # Modell
 
-input_shape = (82944,)
+input_shape = (HEIGHT*WIDTH,)
 input_reshape = (HEIGHT, WIDTH, 1)
 
-hidden_num_units = 500
+hidden_num_units = 200
 output_num_units = 3
 
 model = Sequential([
@@ -80,7 +80,7 @@ model.compile(loss='categorical_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
 
-nof_epochs = 200
+nof_epochs = 12
 
 # Callbacks
 tensorboard = TensorBoard(log_dir='logs/model-{}epochs-{}batchsize-{}hidden_units'

@@ -86,17 +86,17 @@ for i in list(range(3))[::-1]:
 
 main()
 
-# # visualize training data
-#
-# train_data = np.load('data/training_data.npy')
-#
-# for img, choice in train_data:
-#
-#     cv2.imshow("win", cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-#     print(choice)
-#
-#     if cv2.waitKey(25) & 0xFF == ord('q'):
-#         cv2.destroyAllWindows()
-#         break
-#
-# cv2.destroyAllWindows()
+# visualize training data
+
+train_data = np.load('data/training_data.npy')
+
+for img, choice in train_data:
+
+    cv2.imshow("win", cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+    print(choice)
+
+    if cv2.waitKey(25) & 0xFF == ord('q'):
+        cv2.destroyAllWindows()
+        break
+
+cv2.destroyAllWindows()
