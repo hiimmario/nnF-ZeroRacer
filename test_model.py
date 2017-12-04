@@ -31,8 +31,7 @@ def right():
     ReleaseKey(A)
 
 
-model = load_model("models/model-64batchsize-640hidden_units_nocanny_10k.h5")
-model = load_model("checkpoints/weights.0_01-0.53.hdf5")
+model = load_model("checkpoints/weights.0_10.hdf5")
 
 paused = True
 last_time = time.time()
@@ -41,7 +40,7 @@ for i in list(range(3))[::-1]:
     print(i + 1)
     time.sleep(1)
 
-loop_index = 0
+# loop_index = 0
 
 while True:
     if not paused:
@@ -49,7 +48,7 @@ while True:
         fps = round(1 / max((time.time() - last_time), 0.01))
         last_time = time.time()
 
-        screen = grab_screen(region=(375, 0, 1570, 1080))
+        screen = grab_screen(region=(0, 0, 1920, 1080))
         processed_img = cv2.resize(screen, (192, 108))
         processed_img = (process_image(processed_img)/255)
 
@@ -80,9 +79,9 @@ while True:
             # print("right")
             right()
 
-    if cv2.waitKey(25) & 0xFF == ord('q'):
-        cv2.destroyAllWindows()
-        break
+    # if cv2.waitKey(25) & 0xFF == ord('q'):
+    #     cv2.destroyAllWindows()
+    #     break
 
     keys = key_check()
 

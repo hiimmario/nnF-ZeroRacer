@@ -16,7 +16,6 @@ lefts = []
 right = []
 forwards = []
 
-
 for index, data in enumerate(train_data):
 
     # process the original picture, which is only resized to whatever you want to train and test
@@ -27,34 +26,60 @@ for index, data in enumerate(train_data):
     # if choice == [1, 0, 0]:   training data noise
     if choice == [1, 1, 0] or choice == [1, 0, 0]:
         lefts.append([processed_img, [1, 0, 0]])
-        if randint(0,9) < 8:
-            cv2.imwrite('images_smaller/lefts/frame_{}.png'.format(index), processed_img)
-        else:
-            cv2.imwrite('images_smaller_test/lefts/frame_{}.png'.format(index),
-                        processed_img)
+        cv2.imwrite('images_smaller/lefts/frame_{}.png'.format(index), processed_img)
+
 
     elif choice == [0, 1, 0]:
         forwards.append([processed_img, choice])
+        cv2.imwrite('images_smaller/forwards/frame_{}.png'.format(index),
+                        processed_img)
 
-        if randint(0,9) < 8:
-            cv2.imwrite('images_smaller/forwards/frame_{}.png'.format(index),
-                        processed_img)
-        else:
-            cv2.imwrite('images_smaller_test/forwards/frame_{}.png'.format(index),
-                        processed_img)
 
     elif choice == [0, 1, 1] or choice == [0, 0, 1]:
         right.append([processed_img, [0, 0, 1]])
-
-        if randint(0,9) < 8:
-            cv2.imwrite('images_smaller/rights/frame_{}.png'.format(index),
+        cv2.imwrite('images_smaller/rights/frame_{}.png'.format(index),
                         processed_img)
-        else:
-            cv2.imwrite('images_smaller_test/rights/frame_{}.png'.format(index),
-                        processed_img)
-
     else:
         pass
+
+# for index, data in enumerate(train_data):
+#
+#     # process the original picture, which is only resized to whatever you want to train and test
+#     # only adjust process image and call it within test_model
+#     processed_img = process_image(data[0])
+#     choice = data[1]
+#
+#     # if choice == [1, 0, 0]:   training data noise
+#     if choice == [1, 1, 0] or choice == [1, 0, 0]:
+#         lefts.append([processed_img, [1, 0, 0]])
+#         if randint(0,9) < 8:
+#             cv2.imwrite('images_smaller/lefts/frame_{}.png'.format(index), processed_img)
+#         else:
+#             cv2.imwrite('images_smaller_test/lefts/frame_{}.png'.format(index),
+#                         processed_img)
+#
+#     elif choice == [0, 1, 0]:
+#         forwards.append([processed_img, choice])
+#
+#         if randint(0,9) < 8:
+#             cv2.imwrite('images_smaller/forwards/frame_{}.png'.format(index),
+#                         processed_img)
+#         else:
+#             cv2.imwrite('images_smaller_test/forwards/frame_{}.png'.format(index),
+#                         processed_img)
+#
+#     elif choice == [0, 1, 1] or choice == [0, 0, 1]:
+#         right.append([processed_img, [0, 0, 1]])
+#
+#         if randint(0,9) < 8:
+#             cv2.imwrite('images_smaller/rights/frame_{}.png'.format(index),
+#                         processed_img)
+#         else:
+#             cv2.imwrite('images_smaller_test/rights/frame_{}.png'.format(index),
+#                         processed_img)
+#
+#     else:
+#         pass
 
 final_data = forwards + lefts + right
 
