@@ -62,12 +62,6 @@ def main():
 
             print(str(fps) + "fps")
 
-            ## if deactivated the saving process takes quiet some time
-            ## but you dont miss frames while playing and saving inbetween
-            # if len(training_data) % 500 == 0:
-            #     print(len(training_data))
-            #     np.save(file_name, training_data)
-
         # t for pause script so you can get in position again
         if 'T' in keys:
             if paused:
@@ -90,10 +84,14 @@ main()
 
 train_data = np.load('data/training_data.npy')
 
+choices = []
+
 for img, choice in train_data:
 
     cv2.imshow("win", cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
     print(choice)
+
+    choices.append(choice)
 
     if cv2.waitKey(25) & 0xFF == ord('q'):
         cv2.destroyAllWindows()

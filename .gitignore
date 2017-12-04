@@ -6,5 +6,6 @@ logs
 models
 images
 images_smaller
-images_test
+images_smaller_test
+checkpoints
 
